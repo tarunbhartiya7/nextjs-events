@@ -1,5 +1,5 @@
-import classes from "./event-list.module.css";
-import EventItem from "./event-item";
+import classes from './event-list.module.css'
+import EventItem from './event-item'
 
 export default function EventList({ items }) {
   return (
@@ -8,5 +8,5 @@ export default function EventList({ items }) {
         <EventItem key={event.id} {...event} />
       ))}
     </ul>
-  );
+  )
 }
