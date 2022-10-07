@@ -34,6 +34,12 @@ export default function EventDetailPage({ event }) {
 export async function getStaticProps({ params }) {
   const event = await getEventById(params.eventId)
 
+  if (!event) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       event,
