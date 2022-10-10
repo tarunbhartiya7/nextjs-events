@@ -1,5 +1,5 @@
+import { connectToDatabase } from '../../helpers/db-util'
 import Newsletter from '../../models/newsletter'
-const mongoose = require('mongoose')
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -9,7 +9,7 @@ export default async function handler(req, res) {
       return res.status(422).send({ message: 'Validation failed!' })
     }
 
-    await mongoose.connect('mongodb://localhost/events')
+    await connectToDatabase()
     const response = await Newsletter.create({ email })
 
     console.log('response', response)

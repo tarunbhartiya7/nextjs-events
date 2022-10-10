@@ -1,7 +1,5 @@
+import { connectToDatabase } from '../../../helpers/db-util'
 import Comment from '../../../models/comment'
-const mongoose = require('mongoose')
-
-const comments = []
 
 export default async function handler(req, res) {
   const { eventId } = req.query
@@ -27,7 +25,7 @@ export default async function handler(req, res) {
       text,
     }
 
-    await mongoose.connect('mongodb://localhost/events')
+    await connectToDatabase()
     const response = await Comment.create(newComment)
     console.log('newComment', response)
 
@@ -37,7 +35,7 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'GET') {
-    await mongoose.connect('mongodb://localhost/events')
+    await connectToDatabase()
     const result = await Comment.find({})
     return res.send({ comments: result })
   }

@@ -6,7 +6,6 @@ import classes from './comments.module.css'
 
 function Comments(props) {
   const { eventId } = props
-  debugger
 
   const [showComments, setShowComments] = useState(false)
   const [comments, setComments] = useState([])
