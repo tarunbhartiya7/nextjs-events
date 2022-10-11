@@ -10,12 +10,17 @@ function Comments(props) {
   const notificationCtx = useContext(NotificationContext)
   const [showComments, setShowComments] = useState(false)
   const [comments, setComments] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (showComments) {
+      setLoading(true)
       fetch(`/api/comments/${eventId}`)
         .then((response) => response.json())
-        .then((data) => setComments(data.comments))
+        .then((data) => {
+          setComments(data.comments)
+          setLoading(false)
+        })
     }
   }, [showComments])
 
@@ -62,7 +67,8 @@ function Comments(props) {
         {showComments ? 'Hide' : 'Show'} Comments
       </button>
       {showComments && <NewComment onAddComment={addCommentHandler} />}
-      {showComments && <CommentList items={comments} />}
+      {showComments && !loading && <CommentList items={comments} />}
+      {showComments && loading && <p>Loading...</p>}
     </section>
   )
 }
